@@ -1,0 +1,52 @@
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <h1>Singa-Auto Demo - CNN Classification Model</h1>
+<p>作为演示模型，SaClassDemo模型可以应用于简单的图像分类任务。</p>
+<p>As a demo model, SaClassDemo can be applied to simple image classification task. </p>
+<h2>数据预处理 Dataset preparation</h2>
+<p>对于数据的预处理，首先将图像Resize到28x28的尺寸，再进行简单的归一化处理。
+（这要求数据集中图像的尺寸不能太大，而且必须为RGB三通道）</p>
+<p>For the processing of the dataset, the first step is to resize the image to size of 28*28 and then perform a simple normalization. 
+(This requires that the size of image is not too large and it must be RGB channels)</p>
+<h2>模型描述 Model description</h2>
+<p>这个模型是仿照标准<a href="https://arxiv.org/pdf/1409.1556.pdf">VGG模型</a>实现的，使用了非常标准的5层卷积-降采样+分类器结构。</p>
+<p>This model is implemented after the standard <a href="https://arxiv.org/pdf/1409.1556.pdf">VGG model</a>, using a very standard 5-layer convolution-downsampling + classifier structure.</p>
+<p><img alt="vgg" src="vgg16.png" /></p>
+<h2>使用 Usage on ForkCloud</h2>
+<h3>训练 Training</h3>
+<ul>
+<li>依赖 Model Requirements:
+    <code>torch == 1.7.0
+    torchvision == 0.8.0</code></li>
+<li>
+<p>任务类型 Task Type: <code>图像分类 Image Classification</code></p>
+</li>
+<li>
+<p>预训练文件 Pre-trained Model: <code>无 None</code></p>
+</li>
+<li>
+<p>预算（GPU个数）GPU Budget: <code>0</code><br />
+<strong>注意：由于此模型应用的图像尺寸相对较小，且默认使用自适应batch-size，如果使用GPU训练，会导致batch-size过大而使模型极难收敛，所以推荐不使用GPU</strong><br />
+<strong>Note: Since the image size applied in this model is relatively small and by default auto-batch is used, if the GPU is deployed for training, the batch-size will be too large and the model will be extremely difficult to converge, so it is not recommended to use GPU.</strong></p>
+</li>
+<li>
+<p>自动调参 Auto-tuning: <code>是 Yes</code><br />
+  训练次数 Trial Count: <code>2</code><br />
+<strong>注意：此模型用于演示自动调参功能，在模型中使用了CategoricalKnob，所以必须选择开启自动调参</strong><br />
+<strong>Note: This model is used to demonstrate Singa-auto's auto-tuning function, and CategoricalKnob is used in the model, so auto-tuning must be selected.</strong></p>
+</li>
+</ul>
+<h3>预测 Inference</h3>
+<ul>
+<li>预算 Budget:
+    <code>GPUs: 0
+    CPUs: 2
+    Mem/G: 4</code></li>
+<li>
+<p>预测输入与输出 Inference input and output:  </p>
+<p>输入：文件，与训练数据集分布一致的常规图像文件<br />
+输出：字符串，分类结果（此模型直接返回类名） </p>
+<p>Input: file, a regular image file with the same distribution as the training set<br />
+Output: string, classification results (this model returns class name directly)</p>
+</li>
+</ul>
