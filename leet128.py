@@ -5,6 +5,16 @@ class Solution(object):
         :rtype: int
         """
         numset = set(nums)
+        longest = 1
+        for n in numset:
+            if (n-1) not in numset:
+                root = n
+                record = 1
+                while root + 1 in numset:
+                    record += 1
+                    root += 1
+                longest = max(record, longest)
+        return record
 #         n = len(nums)
 #         set = djset(n)
 #         for i in range(n):
